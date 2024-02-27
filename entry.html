@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Decision Tree</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+    h1, h2, p {
+      margin-top: 0;
+    }
+    .btn-group {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Decision Tree</h1>
+  
+    <h2>Are you a human?</h2>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" onclick="showChoice('c1')">Yes</button>
+      <button type="button" class="btn btn-primary" onclick="showChoice('c2')">No</button>
+      <button type="button" class="btn btn-primary" onclick="showChoice('c3')">Not sure</button>
+    </div>
+  
+    <p id="response"></p>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function showChoice(choice) {
+        var responseElement = $('#response');
+        
+        if (choice === 'c1') {
+          responseElement.text('You selected choice 1. Answer: p1');
+        } else if (choice === 'c2') {
+          responseElement.text('You selected choice 2. Answer: p2');
+        } else if (choice === 'c3') {
+          responseElement.text('You selected choice 3. Answer: p3');
+        }
+      }
+    </script>
+  </div>
+</body>
+</html>
