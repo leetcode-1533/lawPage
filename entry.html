@@ -40,6 +40,16 @@
   </style>
 </head>
 <body>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+  <script>
+    wx.miniProgram.getEnv(function(res) {
+      if (res.miniprogram) {
+        // Running inside WeChat Mini Program
+        wx.miniProgram.postMessage({ action: 'setNavigationStyle', style: 'custom' });
+        wx.miniProgram.postMessage({ action: 'setStyle', style: { navigationBarTitleText: 'Decision Tree' } });
+      }
+    });
+  </script>
   <div class="container">
     <h1>Decision Tree</h1>
   
