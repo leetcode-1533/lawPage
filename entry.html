@@ -1,85 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Decision Tree</title>
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      padding: 20px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    h1, h2, p {
-      margin-top: 0;
-    }
-    .btn-group {
-      margin-top: 10px;
-    }
-    .btn {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .btn:not(:last-child) {
-      margin-right: 10px;
-    }
-    .btn:focus {
-      outline: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decision Tree Example</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #choices {
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button:active {
+    background-color: #3e8e41;
+  }
+
+  #answers p {
+    display: none;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+</style>
 </head>
 <body>
-  <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
-  <script>
-    wx.miniProgram.getEnv(function(res) {
-      if (res.miniprogram) {
-        // Running inside WeChat Mini Program
-        wx.miniProgram.postMessage({ action: 'setNavigationStyle', style: 'default' });
-        wx.miniProgram.postMessage({ action: 'setStyle', style: { navigationBarTitleText: 'Decision Tree' } });
-      }
-    });
-  </script>
-  <div class="container">
-    <h1>Decision Tree</h1>
-  
-    <h2>Are you a human?</h2>
-    <div class="btn-group">
-      <button type="button" class="btn" onclick="showChoice('c1')">Yes</button>
-      <button type="button" class="btn" onclick="showChoice('c2')">No</button>
-      <button type="button" class="btn" onclick="showChoice('c3')">Not sure</button>
-    </div>
-  
-    <p id="response"></p>
 
-    <script>
-      function showChoice(choice) {
-        var responseElement = document.getElementById('response');
-        
-        if (choice === 'c1') {
-          responseElement.textContent = 'You selected choice 1. Answer: p1';
-        } else if (choice === 'c2') {
-          responseElement.textContent = 'You selected choice 2. Answer: p2';
-        } else if (choice === 'c3') {
-          responseElement.textContent = 'You selected choice 3. Answer: p3';
-        }
-      }
-    </script>
+<div class="container">
+  <h2>Are you a human?</h2>
+
+  <div id="choices">
+    <button id="choice1">C1</button>
+    <button id="choice2">C2</button>
+    <button id="choice3">C3</button>
   </div>
+
+  <div id="answers">
+    <p id="p1">Answer for C1</p>
+    <p id="p2">Answer for C2</p>
+    <p id="p3">Answer for C3</p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const choiceButtons = document.querySelectorAll('#choices button');
+    choiceButtons.forEach(button => {
+      button.addEventListener('click', () => displayAnswer(button.getAttribute('id').replace('choice', 'p')));
+    });
+
+    function displayAnswer(answerId) {
+      const answers = document.querySelectorAll('#answers p');
+      answers.forEach(answer => answer.style.display = 'none');
+      document.getElementById(answerId).style.display = 'block';
+    }
+  });
+</script>
+
 </body>
 </html>
