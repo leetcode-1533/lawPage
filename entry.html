@@ -61,10 +61,10 @@
     <h2>请选择购房情况</h2>
     
     <div id="choices">
-        <button onclick="showSubChoices('choice1')">婚前购房</button>
-        <button onclick="showSubChoices('choice2')">婚后购房</button>
-        <button onclick="showSubChoices('choice3')">父母出资购房</button>
-    </div>
+        <button id="choice1" onclick="showSubChoices('choice1'); highlightChoice('choice1');">婚前购房</button>
+        <button id="choice2" onclick="showSubChoices('choice2'); highlightChoice('choice2');">婚后购房</button>
+        <button id="choice3" onclick="showSubChoices('choice3'); highlightChoice('choice3');">父母出资购房</button>
+      </div>
     
     <div id="sub-choices-choice1" style="display: none;">
         <button onclick="showSubChoices('choice1-1')">A婚前全款</button>
@@ -96,7 +96,7 @@
 
     <div id="sub-choices-choice2-2" style="display: none;">
         <button onclick="displayResult('平均分割')">加了B的名字</button>
-        <button onclick="showSubChoices('choice2-2-2')">没加了B的名字</button>
+        <button onclick="showSubChoices('choice2-2-2')">没加B的名字</button>
     </div>
 
     <div id="sub-choices-choice2-2-2" style="display: none;">
@@ -162,6 +162,22 @@ function displayResult(result) {
   var resultsDiv = document.getElementById('results');
   resultsDiv.textContent = result || '';
   resultsDiv.style.display = result ? 'block' : 'none';
+}
+
+function highlightChoice(choiceId) {
+  // Remove the highlight from all buttons
+  var buttons = document.querySelectorAll('#choices button');
+  buttons.forEach(function(button) {
+    button.style.removeProperty('background-color');
+    button.style.removeProperty('color');
+  });
+
+  // Highlight the selected button
+  var selectedButton = document.getElementById(choiceId);
+  if (selectedButton) {
+    selectedButton.style.setProperty('background-color', 'red', 'important');
+    selectedButton.style.setProperty('color', 'white', 'important');
+  }
 }
 ;
 </script>
