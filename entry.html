@@ -52,45 +52,110 @@
 <body>
 
 <div class="container">
-  <h2>请选择购房情况</h2>
+    <h2>请选择购房情况</h2>
+    
+    <div id="choices">
+        <button onclick="showSubChoices('choice1')">婚前购房</button>
+        <button onclick="showSubChoices('choice2')">婚后购房</button>
+        <button onclick="showSubChoices('choice3')">父母出资购房</button>
+    </div>
+    
+    <div id="sub-choices-choice1" style="display: none;">
+        <button onclick="showSubChoices('choice1-1')">A婚前全款</button>
+        <button onclick="displayResult('将房子和后续贷款都判归A;A给B一些补偿')">A婚前付首付、婚后付房贷</button>
+        <button onclick="showSubChoices('choice1-3')">AB共同出资</button>
+    </div>
+    
+    <div id="sub-choices-choice1-1" style="display: none;">
+        <button onclick="displayResult('A可以主张分割')">加了B的名字</button>
+        <button onclick="displayResult('不分割，归A一人')">没加了B的名字</button>
+    </div>
+    
+    <div id="sub-choices-choice1-3" style="display: none;">
+        <button onclick="showSubChoices('choice1-3-1')">A一人名下</button>
+        <button onclick="displayResult('按出资比例分割')">AB双方名下</button>
+    </div>
+    
+    <div id="sub-choices-choice1-3-1" style="display: none;">
+        <button onclick="displayResult('按出资比例分割')">证明是婚房的</button>
+        <button onclick="displayResult('不分，算B赠予')">不能证明</button>
+    </div>
 
-  <div id="choices">
-    <button onclick="showSubChoices('choice1')">婚前购房</button>
-    <button onclick="displayResult('婚后购房')">婚后购房</button>
-    <button onclick="displayResult('父母出资购房')">父母出资购房</button>
-  </div>
+     <!-- Choice 2: 婚后购房 -->
+     <div id="sub-choices-choice2" style="display: none;">
+        <button onclick="displayResult('不管写谁的名，都按夫妻共同财产分割')">AB共同出资</button>
+        <button onclick="showSubChoices('choice2-2')">A一人出资</button>
+        <button onclick="displayResult('方案一： 将婚前首付剥离，剩余部分分割\n方案二： 按照出资比例进行分割\n方案三： 视为共同财产，分割比例根据原则和实际情况自由裁量')">A婚前首付 B婚后参与房贷</button>
+    </div>
 
-  <div id="sub-choices-choice1" style="display: none;">
-    <button onclick="showSubChoices('choice1-1')">A婚前全款</button>
-    <button onclick="displayResult('将房子和后续贷款都判归A')">A婚前付首付、婚后付房贷</button>
-  </div>
+    <div id="sub-choices-choice2-2" style="display: none;">
+        <button onclick="displayResult('平均分割')">加了B的名字</button>
+        <button onclick="showSubChoices('choice2-2-2')">没加了B的名字</button>
+    </div>
 
-  <div id="sub-choices-choice1-1" style="display: none;">
-    <button onclick="displayResult('A可以主张分割')">加了B的名字</button>
-    <button onclick="displayResult('不分割，归A一人')">没加B的名字</button>
-  </div>
+    <div id="sub-choices-choice2-2-2" style="display: none;">
+        <button onclick="showSubChoices('choice2-2-2-1')">证明A个人财产购买</button>
+        <button onclick="displayResult('平均分割 适当考虑出资')">无法证明</button>
+    </div>
 
-  <div id="results"></div>
+    <div id="sub-choices-choice2-2-2-1" style="display: none;">
+        <button onclick="displayResult('平均分割')">贷款</button>
+        <button onclick="displayResult('不分割')">全款</button>
+    </div>
+
+    <!-- Choice 3: 父母出资购房 -->
+    <div id="sub-choices-choice3" style="display: none;">
+        <button onclick="showSubChoices('choice3-1')">双方父母首付/全款</button>
+        <button onclick="showSubChoices('choice3-2')">A方父母出资</button>
+    </div>
+
+    <div id="sub-choices-choice3-1" style="display: none;">
+        <button onclick="displayResult('按出资比例进行分割')">登记在一方名下</button>
+        <button onclick="showSubChoices('choice3-1-2')">登记在双方名下</button>
+    </div>
+
+    <div id="sub-choices-choice3-1-2" style="display: none;">
+        <button onclick="displayResult('遵从约定')">有财产约定</button>
+        <button onclick="displayResult('平均分割 适当考虑父母出资')">无财产约定</button>
+    </div>
+
+    <div id="sub-choices-choice3-2" style="display: none;">
+        <button onclick="displayResult('证据充足：平均分割，否则 视为A方赠予B')">登记在B名下</button>
+        <button onclick="displayResult('不分割')">登记在A名下</button>
+    </div>
+
+
+    <div id="results"></div>
 </div>
 
 <script>
-  function showSubChoices(choice) {
-    // Hide all sub-choice divs
-    var subChoices = document.querySelectorAll('[id^="sub-choices"]');
-    for (var i = 0; i < subChoices.length; i++) {
-      subChoices[i].style.display = 'none';
-    }
+   function showSubChoices(choice) {
+  // Hide all sub-choice divs
+  var subChoices = document.querySelectorAll('[id^="sub-choices"]');
+  subChoices.forEach(function(subChoice) {
+    subChoice.style.display = 'none';
+  });
 
-    // Show the selected sub-choice div
-    document.getElementById('sub-choices-' + choice).style.display = 'block';
+  // Show the selected sub-choice div
+  var selectedSubChoice = document.getElementById('sub-choices-' + choice);
+  if (selectedSubChoice) {
+    selectedSubChoice.style.display = 'block';
   }
+}
 
-  function displayResult(result) {
-    // Display the result
-    var resultsDiv = document.getElementById('results');
-    resultsDiv.textContent = result;
-    resultsDiv.style.display = 'block';
-  }
+function displayResult(result) {
+  // Clear any visible sub-choices
+  var subChoices = document.querySelectorAll('[id^="sub-choices"]');
+  subChoices.forEach(function(subChoice) {
+    subChoice.style.display = 'none';
+  });
+
+  // Display the result or empty content if no result is provided
+  var resultsDiv = document.getElementById('results');
+  resultsDiv.textContent = result || '';
+  resultsDiv.style.display = result ? 'block' : 'none';
+}
+;
 </script>
 
 </body>
