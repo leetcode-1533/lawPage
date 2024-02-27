@@ -74,7 +74,7 @@
     
     <div id="sub-choices-choice1-1" style="display: none;">
         <button onclick="displayResult('A可以主张分割')">加了B的名字</button>
-        <button onclick="displayResult('不分割，归A一人')">没加了B的名字</button>
+        <button onclick="displayResult('不分割，归A一人')">没加B的名字</button>
     </div>
     
     <div id="sub-choices-choice1-3" style="display: none;">
@@ -136,6 +136,8 @@
 
 <script>
    function showSubChoices(choice) {
+    document.getElementById('results').innerHTML = '';
+
   // Hide all sub-choice divs
   var subChoices = document.querySelectorAll('[id^="sub-choices"]');
   subChoices.forEach(function(subChoice) {
