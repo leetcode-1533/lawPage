@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Decision Tree Example</title>
+<title>Property Division Decision Tree</title>
 <style>
   body, html {
     height: 100%;
@@ -18,14 +18,10 @@
     text-align: center;
   }
 
-  h2 {
-    font-size: 5vw; /* Use viewport width for responsive font size */
-  }
-
-  #choices button {
-    padding: 5vw; /* Use viewport width for responsive padding */
-    margin: 3vw;
-    font-size: 4vw; /* Responsive font size */
+  button {
+    padding: 15px;
+    margin: 10px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     background-color: #4CAF50;
@@ -34,75 +30,67 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  #choices button:focus {
+  button:focus {
     outline: none;
   }
 
-  #choices button:active {
+  button:active {
     background-color: #3e8e41;
   }
 
-  #answers p {
-    display: none;
-    padding: 4vw;
-    margin-top: 3vw;
+  #results {
+    padding: 15px;
+    margin-top: 20px;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    font-size: 4vw;
-  }
-
-  /* For larger screens, we may want to limit the maximum size */
-  @media (min-width: 768px) {
-    h2 {
-      font-size: 36px;
-    }
-
-    #choices button {
-      padding: 20px;
-      margin: 10px;
-      font-size: 18px;
-    }
-
-    #answers p {
-      padding: 20px;
-      font-size: 18px;
-    }
+    display: none;
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h2>Are you a human?</h2>
+  <h2>请选择购房情况</h2>
 
   <div id="choices">
-    <button id="choice1">C1</button>
-    <button id="choice2">C2</button>
-    <button id="choice3">C3</button>
+    <button onclick="showSubChoices('choice1')">婚前购房</button>
+    <button onclick="displayResult('婚后购房')">婚后购房</button>
+    <button onclick="displayResult('父母出资购房')">父母出资购房</button>
   </div>
 
-  <div id="answers">
-    <p id="p1">Answer for C1</p>
-    <p id="p2">Answer for C2</p>
-    <p id="p3">Answer for C3</p>
+  <div id="sub-choices-choice1" style="display: none;">
+    <button onclick="showSubChoices('choice1-1')">A婚前全款</button>
+    <button onclick="displayResult('将房子和后续贷款都判归A')">A婚前付首付、婚后付房贷</button>
   </div>
+
+  <div id="sub-choices-choice1-1" style="display: none;">
+    <button onclick="displayResult('A可以主张分割')">加了B的名字</button>
+    <button onclick="displayResult('不分割，归A一人')">没加B的名字</button>
+  </div>
+
+  <div id="results"></div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    const choiceButtons = document.querySelectorAll('#choices button');
-    choiceButtons.forEach(button => {
-      button.addEventListener('click', () => displayAnswer(button.getAttribute('id').replace('choice', 'p')));
-    });
-
-    function displayAnswer(answerId) {
-      const answers = document.querySelectorAll('#answers p');
-      answers.forEach(answer => answer.style.display = 'none');
-      document.getElementById(answerId).style.display = 'block';
+  function showSubChoices(choice) {
+    // Hide all sub-choice divs
+    var subChoices = document.querySelectorAll('[id^="sub-choices"]');
+    for (var i = 0; i < subChoices.length; i++) {
+      subChoices[i].style.display = 'none';
     }
-  });
+
+    // Show the selected sub-choice div
+    document.getElementById('sub-choices-' + choice).style.display = 'block';
+  }
+
+  function displayResult(result) {
+    // Display the result
+    var resultsDiv = document.getElementById('results');
+    resultsDiv.textContent = result;
+    resultsDiv.style.display = 'block';
+  }
 </script>
 
 </body>
